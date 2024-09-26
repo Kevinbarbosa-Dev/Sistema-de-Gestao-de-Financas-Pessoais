@@ -11,8 +11,7 @@ public class ContaDespesa{
         return armazenarDespesa;
     }
 
-    public void inserirDespesa(String descricao, Double valor){
-      Conta  despesa = new Conta(descricao,valor, "Despesa");
-        armazenarDespesa.add(despesa);
+    public void addDespesa(Conta despesa) {
+        this.armazenarDespesa.add(despesa);
     }
 }

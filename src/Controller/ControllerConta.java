@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.Conta;
 import Model.ContaDespesa;
 import Model.ContaReceita;
 import View.ViewConta;
@@ -11,27 +12,21 @@ public class ControllerConta {
     private ViewConta view;
     private Scanner ler;
 
-    public ControllerConta(ContaDespesa contaDespesa, ContaReceita contaReceita, ViewConta view) {
-        this.contaDespesa = contaDespesa;
-        this.contaReceita = contaReceita;
-        this.view = view;
+    public ControllerConta() {
+        this.contaDespesa = new ContaDespesa();
+        this.contaReceita = new ContaReceita();
+        this.view = new ViewConta();
         this.ler = new Scanner(System.in);
     }
 
     public void adicionarDespesa() {
-        System.out.println("Digite a descrição da despesa:");
-        String descricao = ler.nextLine();
-        System.out.println("Digite o valor da despesa:");
-        double valor = ler.nextDouble();
-        contaDespesa.inserirDespesa(descricao, valor);
+        Conta despesa = view.mostrarFormDespesa(ler);
+        contaDespesa.addDespesa(despesa);
     }
 
     public void adicionarReceita() {
-        System.out.println("Digite a descrição da receita:");
-        String descricao = ler.nextLine();
-        System.out.println("Digite o valor da receita:");
-        double valor = ler.nextDouble();
-        contaReceita.inserirReceita(descricao, valor);
+        Conta receita = view.mostrarFormReceita(ler);
+        contaReceita.addReceita(receita);
     }
 
     public void exibirFinancas() {

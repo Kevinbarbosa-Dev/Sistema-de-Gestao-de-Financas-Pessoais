@@ -10,9 +10,8 @@ public class ContaReceita {
         return armazenarReceita;
     }
 
-    public void inserirReceita(String descricao, double valor) {
-        Conta receita = new Conta(descricao, valor, "Receita");
-        armazenarReceita.add(receita);
+    public void addReceita(Conta receita) {
+        this.armazenarReceita.add(receita);
     }
     
     public double calcularSaldoTotal(ContaDespesa despesas) {    

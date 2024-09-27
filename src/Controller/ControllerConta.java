@@ -30,24 +30,38 @@ public class ControllerConta {
     }
 
     public void exibirFinancas() {
-        view.mostrarDespesa(contaDespesa.getArmazenarDespesa());
-        view.mostrarReceita(contaReceita.getArmazenarReceita());
+        view.extratoDaConta(contaDespesa.getArmazenarDespesa(), contaReceita.getArmazenarReceita());
         double saldo = contaReceita.calcularSaldoTotal(contaDespesa);
         view.exibirSaldo(saldo);
     }
 
-    public void pause(){
-        try{
+    public void pause() {
+        try {
             Thread.sleep(1000);
-        }catch(InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public void voltar() {
+        int escolha;
+        do {
+            escolha = view.voltarMenu(ler);
+            if (escolha != 1) {
+                System.out.println("Opção inválida!");
+                pause();
+            }
+        } while (escolha != 1);
+        view.menu();
     }
 
     public void start() {
         int opcao = 0;
         while (opcao != 4) {
-            view.menu();
+            if (opcao == 0 || opcao == 1 || opcao == 2) {
+                view.menu();
+            }
+
             opcao = ler.nextInt();
             ler.nextLine();
 
@@ -62,6 +76,7 @@ public class ControllerConta {
                     break;
                 case 3:
                     exibirFinancas();
+                    voltar();
                     break;
                 case 4:
                     System.out.println("Saindo...");

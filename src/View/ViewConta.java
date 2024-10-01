@@ -47,8 +47,17 @@ public class ViewConta {
         return new Conta(descricao, valor, "Receita");
     }
 
-    public int voltarMenu(Scanner ler) {
-        System.out.println("\n1 - Voltar");
+    public int opcoesDepoisDeExibir(Scanner ler) {
+        System.out.println("\n1 - Pagar Tudo" + "\n2 - Voltar");
+        return ler.nextInt();
+    }
+
+    
+
+    public int confirmar(Scanner ler){
+        System.out.println("Deseja confirmar?");
+        System.out.println("1 - Sim");
+        System.out.println("2 - Não");
         return ler.nextInt();
     }
 }

@@ -20,3 +20,5 @@ Problemas:
 - Conta sendo paga sem ser solicitada.
     Solução: Criar um método para solicitar a conta a ser paga.
     Opçães: Pagar tudo ou pagar uma conta específica? - Mostrar o valor que será descontado do saldo - Continuar?
+    pagar conta -> listar as despesas e mostrar a receita atual
+    

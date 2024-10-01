@@ -31,9 +31,10 @@ public class ControllerConta {
 
     public void exibirFinancas() {
         view.extratoDaConta(contaDespesa.getArmazenarDespesa(), contaReceita.getArmazenarReceita());
-        double saldo = contaReceita.calcularSaldoTotal(contaDespesa);
-        view.exibirSaldo(saldo);
+        // double saldo = contaReceita.calcularSaldoTotal(contaDespesa);
+        // view.exibirSaldo(saldo);
     }
+
 
     public void pause() {
         try {
@@ -42,26 +43,38 @@ public class ControllerConta {
             e.printStackTrace();
         }
     }
-
-    public void voltar() {
-        int escolha;
-        do {
-            escolha = view.voltarMenu(ler);
-            if (escolha != 1) {
-                System.out.println("Opção inválida!");
-                pause();
+    // public void mostrarContaArmazenada(){
+    //     contaDespesa.getArmazenarDespesa([]);
+    // }
+    public void opcoesExibir() {
+        while (true) {
+            int escolha = view.opcoesDepoisDeExibir(ler);      
+            switch (escolha) {
+                case 1:
+                    if (view.confirmar(ler) == 1) {
+                        double saldo = contaReceita.calcularSaldoTotal(contaDespesa);
+                        view.exibirSaldo(saldo);
+                        System.out.println("Pagamento realizado com sucesso!");
+                        pause();
+                        return;
+                    } else {
+                        System.out.println("Pagamento cancelado!");
+                        pause();
+                    }
+                    break;
+                case 2:
+                    return;
+                default:
+                    System.out.println("Opção inválida!");
+                    pause();
             }
-        } while (escolha != 1);
-        view.menu();
+        }
     }
 
     public void start() {
         int opcao = 0;
         while (opcao != 4) {
-            if (opcao == 0 || opcao == 1 || opcao == 2) {
-                view.menu();
-            }
-
+            view.menu();
             opcao = ler.nextInt();
             ler.nextLine();
 
@@ -76,7 +89,7 @@ public class ControllerConta {
                     break;
                 case 3:
                     exibirFinancas();
-                    voltar();
+                    opcoesExibir();
                     break;
                 case 4:
                     System.out.println("Saindo...");

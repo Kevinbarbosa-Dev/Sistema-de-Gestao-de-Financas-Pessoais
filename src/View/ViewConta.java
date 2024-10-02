@@ -23,6 +23,26 @@ public class ViewConta {
         System.out.println("*******************");
     }
 
+    public void mostrarDespesa(List<Conta> despesas){
+        int listaNumerica = 1;
+        System.out.println("*******************");
+        System.out.println("Despesas:");
+        for (Conta despesa : despesas) {
+            System.out.println(listaNumerica++ +  "-" +  despesa.getDescricao() + ": R$" + despesa.getValor());
+        }
+        System.out.println("*******************");
+    }
+
+    public void mostrarReceita(List<Conta> receitas){
+        int listaNumerica = 1;
+        System.out.println("*******************");
+        System.out.println("Receita:");
+        for (Conta receita : receitas) {
+            System.out.println(listaNumerica++ +  "-" + receita.getDescricao() + ": R$" + receita.getValor());
+        }
+        System.out.println("*******************");
+    }
+
     public void menu() {
         System.out.println("Seja Bem Vindo, ao seu sistema de contas");
         System.out.println("Escolha a opcão de que deseja prosseguir");
@@ -48,7 +68,7 @@ public class ViewConta {
     }
 
     public int opcoesDepoisDeExibir(Scanner ler) {
-        System.out.println("\n1 - Pagar Tudo" + "\n2 - Voltar");
+        System.out.println("\n1 - Pagar Tudo" + "\n2 - Remover" + "\n3 - Voltar");
         return ler.nextInt();
     }
 
@@ -60,4 +80,9 @@ public class ViewConta {
         System.out.println("2 - Não");
         return ler.nextInt();
     }
-}
+    public int opcoesDeSelecionarRemover(Scanner ler){
+        System.out.println("\n1 - Remover Despesa" + "\n2 - Remover Receita" + "\n3 - Voltar");
+        return ler.nextInt();
+    }
+    
+} 

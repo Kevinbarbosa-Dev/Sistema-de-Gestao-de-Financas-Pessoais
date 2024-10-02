@@ -21,4 +21,7 @@ Problemas:
     Solução: Criar um método para solicitar a conta a ser paga.
     Opçães: Pagar tudo ou pagar uma conta específica? - Mostrar o valor que será descontado do saldo - Continuar?
     pagar conta -> listar as despesas e mostrar a receita atual
-    
+- Remover
+    - Remover despesa: Mostrar despesas e pedir o número da despesa a ser removida
+    - Remover receita: Mostrar receitas e pedir o número da receita a ser removida
+- Editar

@@ -49,18 +49,15 @@ public class ControllerConta {
             int escolha = view.opcoesDepoisDeExibir(ler);
             switch (escolha) {
                 case 1:
-                    if (view.confirmar(ler) == 1) {
-                        double saldo = contaReceita.calcularSaldoTotal(contaDespesa);
-                        view.exibirSaldo(saldo);
-                        System.out.println("Pagamento realizado com sucesso!");
-                        pause();
-                        return;
-                    } else if (view.confirmar(ler) == 2) {
-                        System.out.println("Pagamento cancelado!");
-                        pause();
-                    }
-                    break;
+                    view.confirmar(ler);
+                    double saldo = contaReceita.calcularSaldoTotal(contaDespesa);
+                    view.exibirSaldo(saldo);
+                    pause();
+                    return;
                 case 2:
+                    opcoesRemover();
+                    return;
+                case 3:
                     return;
                 default:
                     System.out.println("Opção inválida!");
@@ -78,20 +75,22 @@ public class ControllerConta {
                         System.out.println("Não há nada para remover");
                     } else {
                         view.mostrarDespesa(contaDespesa.getArmazenarDespesa());
-                        System.out.println("Digite o número da despesa que deseja remover");
+                        System.out.println("Digite o número da despesa que deseja remover:");
                         int numeroDespesa = ler.nextInt();
-                        contaDespesa.getArmazenarDespesa().remove(numeroDespesa - 1);
-                        System.out.println("Despesa Atualizada!");
-                        view.mostrarDespesa(contaDespesa.getArmazenarDespesa());
-                        pause();
-                        return;
+                        if (numeroDespesa > 0 && numeroDespesa <= contaDespesa.getArmazenarDespesa().size()) {
+                            contaDespesa.getArmazenarDespesa().remove(numeroDespesa - 1);
+                            System.out.println("Despesa removida com sucesso!");
+                            view.mostrarDespesa(contaDespesa.getArmazenarDespesa());
+                        } else {
+                            System.out.println("Número inválido.");
+                        }
                     }
-
+                    pause();
                     break;
                 case 2:
                     if (contaReceita.getArmazenarReceita().isEmpty()) {
                         System.out.println("Não há nada para remover");
-                    }else{
+                    } else {
                         view.mostrarReceita(contaReceita.getArmazenarReceita());
                         System.out.println("Digite o número da receita que deseja remover");
                         int numeroReceita = ler.nextInt();
@@ -114,10 +113,8 @@ public class ControllerConta {
     public void start() {
         int opcao = 0;
         while (opcao != 4) {
-            view.menu();
-            opcao = ler.nextInt();
+            opcao = view.menu(ler); 
             ler.nextLine();
-
             switch (opcao) {
                 case 1:
                     adicionarDespesa();
@@ -130,7 +127,6 @@ public class ControllerConta {
                 case 3:
                     exibirFinancas();
                     opcoesExibir();
-                    opcoesRemover();
                     break;
                 case 4:
                     System.out.println("Saindo...");

@@ -23,30 +23,31 @@ public class ViewConta {
         System.out.println("--------------------");
     }
 
-    public void mostrarDespesa(List<Conta> despesas){
+    public void mostrarDespesa(List<Conta> despesas) {
         int listaNumerica = 1;
         System.out.println("--------------------");
         System.out.println("Despesas:");
         for (Conta despesa : despesas) {
-            System.out.println(listaNumerica++ +  "-" +  despesa.getDescricao() + ": R$" + despesa.getValor());
+            System.out.println(listaNumerica++ + "-" + despesa.getDescricao() + ": R$" + despesa.getValor());
         }
         System.out.println("--------------------");
     }
 
-    public void mostrarReceita(List<Conta> receitas){
+    public void mostrarReceita(List<Conta> receitas) {
         int listaNumerica = 1;
         System.out.println("--------------------");
         System.out.println("Receita:");
         for (Conta receita : receitas) {
-            System.out.println(listaNumerica++ +  "-" + receita.getDescricao() + ": R$" + receita.getValor());
+            System.out.println(listaNumerica++ + "-" + receita.getDescricao() + ": R$" + receita.getValor());
         }
         System.out.println("--------------------");
     }
 
     public int menu(Scanner ler) {
         System.out.println("Seja Bem Vindo, ao seu sistema de contas");
-        
-        System.out.println("\n1 - Adicionar Despesa" + "\n2 - Adicionar Receita" + "\n3 - Exibir Finanças" + "\n4 - Sair");
+
+        System.out.println(
+                "\n1 - Adicionar Despesa" + "\n2 - Adicionar Receita" + "\n3 - Exibir Finanças" + "\n4 - Sair");
         System.out.println("Escolha a opcão de que deseja prosseguir ");
         return ler.nextInt();
     }
@@ -73,9 +74,7 @@ public class ViewConta {
         return ler.nextInt();
     }
 
-    
-
-    public int confirmar(Scanner ler){
+    public int confirmar(Scanner ler) {
         System.out.println("Deseja confirmar?");
         System.out.println("1 - Sim");
         System.out.println("2 - Não");
@@ -85,11 +84,30 @@ public class ViewConta {
         } else {
             System.out.println("Pagamento cancelado!");
             return 2;
-        } 
+        }
     }
-    public int opcoesDeSelecionarRemover(Scanner ler){
+
+    public int opcoesDeSelecionarRemover(Scanner ler) {
         System.out.println("\n1 - Remover Despesa" + "\n2 - Remover Receita" + "\n3 - Voltar");
         return ler.nextInt();
     }
-    
-} 
+
+        public int numeroParaRemover(Scanner ler, List<Conta> despesa, List<Conta> receita) {
+            if(receita.isEmpty() && despesa.isEmpty()) {
+                System.out.println("Não há despesas ou receitas para remover.");
+                return -1;
+            }
+            if(!receita.isEmpty()) {
+                mostrarDespesa(despesa);
+                System.out.println("Digite o número da despesa que deseja remover:");
+                return ler.nextInt();
+            } else if (!despesa.isEmpty()) {
+                mostrarReceita(receita);
+                System.out.println("Digite o número da receita que deseja remover:");
+                return ler.nextInt(); 
+            }
+            return -1;
+        }
+    }
+
+

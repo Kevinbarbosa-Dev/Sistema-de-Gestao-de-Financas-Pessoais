@@ -92,22 +92,34 @@ public class ViewConta {
         return ler.nextInt();
     }
 
-        public int numeroParaRemover(Scanner ler, List<Conta> despesa, List<Conta> receita) {
-            if(receita.isEmpty() && despesa.isEmpty()) {
-                System.out.println("Não há despesas ou receitas para remover.");
+    public int numeroParaRemover(Scanner ler, List<Conta> despesa, List<Conta> receita) {
+        if (!despesa.isEmpty()) {
+            mostrarDespesa(despesa);
+            System.out.println("Digite o número da despesa que deseja remover:");
+            int numero = ler.nextInt();
+            if (numero > 0 && numero <= despesa.size()) {
+                System.out.println("Despesa removida com sucesso!");
+                return numero;
+            } else {
+                System.out.println("Número de despesa inválido!");
                 return -1;
             }
-            if(!receita.isEmpty()) {
-                mostrarDespesa(despesa);
-                System.out.println("Digite o número da despesa que deseja remover:");
-                return ler.nextInt();
-            } else if (!despesa.isEmpty()) {
-                mostrarReceita(receita);
-                System.out.println("Digite o número da receita que deseja remover:");
-                return ler.nextInt(); 
+        } else if (!receita.isEmpty()) {
+            mostrarReceita(receita);
+            System.out.println("Digite o número da receita que deseja remover:");
+            int numero = ler.nextInt();
+            if (numero > 0 && numero <= receita.size()) {
+                System.out.println("Receita removida com sucesso!");
+                return numero;
+            } else {
+                System.out.println("Número de despesa inválido!");
+                return -1;
             }
-            return -1;
         }
+        return -1;
     }
 
-
+    public void opcaoInvalida(){
+        System.out.println("Opção inválida!");
+    }
+}

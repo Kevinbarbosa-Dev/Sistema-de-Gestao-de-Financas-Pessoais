@@ -41,9 +41,6 @@ public class ControllerConta {
         }
     }
 
-    // public void mostrarContaArmazenada(){
-    // contaDespesa.getArmazenarDespesa([]);
-    // }
     public void opcoesExibir() {
         while (true) {
             int escolha = view.opcoesDepoisDeExibir(ler);
@@ -70,24 +67,15 @@ public class ControllerConta {
             int escolha = view.opcoesDeSelecionarRemover(ler);
             switch (escolha) {
                 case 1:
-                    int numeroDespesa = view.numeroParaRemover(ler, contaDespesa.getArmazenarDespesa(),
-                    contaReceita.getArmazenarReceita());
-                    contaDespesa.getArmazenarDespesa().remove(numeroDespesa - 1);
-                    view.mostrarDespesa(contaDespesa.getArmazenarDespesa());
-                    System.out.println("Despesa removida com sucesso!");
+                    view.numeroParaRemover(ler, contaDespesa.getArmazenarDespesa(), contaReceita.getArmazenarReceita());
                     return;
                 case 2:
-                    int numeroReceita = view.numeroParaRemover(ler, contaDespesa.getArmazenarDespesa(),
-                    contaReceita.getArmazenarReceita());
-                    contaReceita.getArmazenarReceita().remove(numeroReceita - 1);
-                    view.mostrarReceita(contaReceita.getArmazenarReceita());
-                    System.out.println("Receita Atualizada!");
+                    view.numeroParaRemover(ler, contaDespesa.getArmazenarDespesa(), contaReceita.getArmazenarReceita());
                     return;
                 case 3:
                     return;
                 default:
-                    System.out.println("Opção inválida!");
-
+                    view.opcaoInvalida();
             }
             pause();
         }
@@ -115,7 +103,7 @@ public class ControllerConta {
                     System.out.println("Saindo...");
                     break;
                 default:
-                    System.out.println("Opção inválida!");
+                    view.opcaoInvalida();
             }
         }
     }

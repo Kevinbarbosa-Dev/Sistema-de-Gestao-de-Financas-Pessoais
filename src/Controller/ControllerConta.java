@@ -33,6 +33,11 @@ public class ControllerConta {
         view.extratoDaConta(contaDespesa.getArmazenarDespesa(), contaReceita.getArmazenarReceita());
     }
 
+    public void saldoAtualizado(){
+        double saldo = contaReceita.calcularSaldoTotal(contaDespesa);
+        view.exibirSaldo(saldo);
+    }
+
     public void pause() {
         try {
             Thread.sleep(1000);
@@ -40,15 +45,17 @@ public class ControllerConta {
             e.printStackTrace();
         }
     }
+    
 
     public void opcoesExibir() {
         while (true) {
             int escolha = view.opcoesDepoisDeExibir(ler);
             switch (escolha) {
                 case 1:
-                    view.confirmar(ler);
-                    double saldo = contaReceita.calcularSaldoTotal(contaDespesa);
-                    view.exibirSaldo(saldo);
+                    if(view.confirmar(ler) == 1){
+                        saldoAtualizado();
+                        pause();
+                    }
                     return;
                 case 2:
                     opcoesRemover();
@@ -67,10 +74,12 @@ public class ControllerConta {
             int escolha = view.opcoesDeSelecionarRemover(ler);
             switch (escolha) {
                 case 1:
-                    view.numeroParaRemover(ler, contaDespesa.getArmazenarDespesa(), contaReceita.getArmazenarReceita());
+                    view.removerDespesa(ler, contaDespesa.getArmazenarDespesa());
+                    pause();
                     return;
                 case 2:
-                    view.numeroParaRemover(ler, contaDespesa.getArmazenarDespesa(), contaReceita.getArmazenarReceita());
+                    view.removerReceita(ler, contaReceita.getArmazenarReceita());
+                    pause();
                     return;
                 case 3:
                     return;

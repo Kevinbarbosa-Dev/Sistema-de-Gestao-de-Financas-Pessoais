@@ -1,83 +1,63 @@
-package View;
+package view;
 
-import Model.Conta;
-import java.util.List;
 import java.util.Scanner;
 
+import model.Conta;
+
 public class ViewConta {
+    private Scanner ler = new Scanner(System.in);
+
     public void exibirSaldo(double saldo) {
         System.out.println("====================================");
         System.out.printf("     Saldo atual: R$ %.2f\n", saldo);
         System.out.println("====================================\n");
     }
 
-    // Método para exibir o extrato da conta com separação clara
-    public void extratoDaConta(List<Conta> despesas, List<Conta> receitas) {
-        System.out.println("========= Extrato de Finanças =========\n");
-
-        System.out.println(">>> Despesas:");
-        for (Conta despesa : despesas) {
-            System.out.printf("   - %s: R$ %.2f\n", despesa.getDescricao(), despesa.getValor());
-        }
-        System.out.println("\n--------------------------------------");
-
-        System.out.println(">>> Receitas:");
-        for (Conta receita : receitas) {
-            System.out.printf("   - %s: R$ %.2f\n", receita.getDescricao(), receita.getValor());
-        }
-
-        System.out.println("\n======================================\n");
-    }
-
-    // Método para exibir lista de despesas com números formatados
-    public void mostrarDespesa(List<Conta> despesas) {
-        System.out.println("\n========= Despesas =========");
+    public void mostrarFinancas(String descricao, double valor) {
         int listaNumerica = 1;
-        for (Conta despesa : despesas) {
-            System.out.printf("%d - %s: R$ %.2f\n", listaNumerica++, despesa.getDescricao(), despesa.getValor());
-        }
+        System.out.printf("%d - %s: R$ %.2f\n", listaNumerica++, descricao, valor);
         System.out.println("============================\n");
     }
 
-    // Método para exibir lista de receitas com números formatados
-    public void mostrarReceita(List<Conta> receitas) {
-        System.out.println("\n========= Receitas =========");
-        int listaNumerica = 1;
-        for (Conta receita : receitas) {
-            System.out.printf("%d - %s: R$ %.2f\n", listaNumerica++, receita.getDescricao(), receita.getValor());
-        }
-        System.out.println("============================\n");
-    }
-
-    public int menu(Scanner ler) {
+    public int menu() {
         System.out.println("\n********** Sistema de Contas **********");
-        System.out.println(
-                "\n1 - Adicionar Despesa" +
-                        "\n2 - Adicionar Receita" +
-                        "\n3 - Exibir Finanças" +
-                        "\n4 - Sair");
+        System.out.println("1 - Adicionar Despesa");
+        System.out.println("2 - Adicionar Receita");
+        System.out.println("3 - Exibir Finanças");
+        System.out.println("4 - Sair");
         System.out.println("Escolha a opcão de que deseja prosseguir: ");
         return ler.nextInt();
     }
 
-    public Conta mostrarFormDespesa(Scanner ler) {
+    public Conta mostrarFormDespesa() {
         System.out.println("Digite a descrição da despesa:");
         String descricao = ler.nextLine();
         System.out.println("Digite o valor da despesa:");
-        double valor = ler.nextDouble();
-        return new Conta(descricao, valor, "Despesa");
-
+        int valor = ler.nextInt();
+        if(descricao.isEmpty() || valor <= 0){
+            MensagemView.mensagemDadosInvalidos();
+            return null;
+        }else{
+            MensagemView.mensagemDespesaAdicionada();
+            return new Conta(descricao, valor, "Despesa");
+        }
     }
 
-    public Conta mostrarFormReceita(Scanner ler) {
+    public Conta mostrarFormReceita() {
         System.out.println("Digite a descrição da receita:");
         String descricao = ler.nextLine();
         System.out.println("Digite o valor da receita:");
-        double valor = ler.nextDouble();
-        return new Conta(descricao, valor, "Receita");
+        int valor = ler.nextInt();
+        if(descricao.isEmpty() || valor <= 0){
+            MensagemView.mensagemDadosInvalidos();
+            return null;
+        }else{
+            MensagemView.mensagemReceitaAdicionada();
+            return new Conta(descricao, valor, "Receita");
+        }
     }
 
-    public int opcoesDepoisDeExibir(Scanner ler) {
+    public int opcoesDepoisDeExibir() {
         System.out.println(
                 "\n1 - Pagar Tudo" +
                         "\n2 - Remover" +
@@ -98,7 +78,7 @@ public class ViewConta {
         }
     }
 
-    public int opcoesDeSelecionarRemover(Scanner ler) {
+    public int opcoesDeSelecionarRemover() {
         System.out.println(
                 "\n1 - Remover Despesa" +
                         "\n2 - Remover Receita" +
@@ -106,39 +86,13 @@ public class ViewConta {
         return ler.nextInt();
     }
 
-    public void removerDespesa(Scanner ler, List<Conta> despesas) {
-        if (despesas.isEmpty()) {
-            System.out.println("Não há despesas para remover!");
-        } else {
-            mostrarDespesa(despesas);
-            System.out.println("Digite o número da despesa que deseja remover:");
-            int numero = ler.nextInt();
-            if (numero > 0 && numero <= despesas.size()) {
-                despesas.remove(numero - 1);
-                System.out.println("Despesa removida com sucesso!");
-            } else {
-                System.out.println("Número de despesa inválido!");
-            }
-        }
+    public int formRemoverDespesa() {
+        System.out.println("Digite o número da despesa que deseja remover:");
+        return ler.nextInt();
     }
 
-    public void removerReceita(Scanner ler, List<Conta> receitas) {
-        if (receitas.isEmpty()) {
-            System.out.println("Não há receitas para remover!");
-        } else {
-            mostrarReceita(receitas);
-            System.out.println("Digite o número da receita que deseja remover:");
-            int numero = ler.nextInt();
-            if (numero > 0 && numero <= receitas.size()) {
-                receitas.remove(numero - 1);
-                System.out.println("Receita removida com sucesso!");
-            } else {
-                System.out.println("Número de receita inválido!");
-            }
-        }
-    }
-
-    public void opcaoInvalida() {
-        System.out.println("Opção inválida!");
+    public int formRemoverReceita() {
+        System.out.println("Digite o número da receita que deseja remover:");
+        return ler.nextInt();
     }
 }

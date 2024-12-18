@@ -1,10 +1,10 @@
-package Model;
+package model;
 public class Conta {
     private String descricao;
-    private double valor;
-    private String tipo; // "despesa" ou "receita"
+    private int valor;
+    private String tipo;
 
-    public Conta(String descricao, double valor, String tipo) {
+    public Conta(String descricao, int valor, String tipo) {
         this.descricao = descricao;
         this.valor = valor;
         this.tipo = tipo;
@@ -14,7 +14,7 @@ public class Conta {
         return descricao;
     }
 
-    public double getValor() {
+    public int getValor() {
         return valor;
     }
 

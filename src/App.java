@@ -1,10 +1,10 @@
 
 
-import Controller.ControllerConta;
+import controller.AppController;
 
 public class App {
     public static void main(String[] args) {
-        ControllerConta controller = new ControllerConta();
+        AppController controller = new AppController();
         controller.start();
         
     }
